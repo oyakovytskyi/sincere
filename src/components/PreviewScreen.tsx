@@ -1,17 +1,21 @@
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { CentralHeart } from './CentralHeart'
-import { WishModal } from './WishModal'
-import { WISH_ITEMS, type WishItem } from '../data/wishes'
-import { BLOCK_GAP, getWishOrbitOffset, ORBIT_CENTER_Y_OFFSET } from '../data/orbitLayout'
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { CentralHeart } from "./CentralHeart";
+import { WishModal } from "./WishModal";
+import { WISH_ITEMS, type WishItem } from "../data/wishes";
+import {
+  BLOCK_GAP,
+  getWishOrbitOffset,
+  ORBIT_CENTER_Y_OFFSET,
+} from "../data/orbitLayout";
 
 type OrbitWishArmProps = {
-  wish: WishItem
-  onSelect: (wish: WishItem) => void
-}
+  wish: WishItem;
+  onSelect: (wish: WishItem) => void;
+};
 
 function OrbitWishArm({ wish, onSelect }: OrbitWishArmProps) {
-  const offset = getWishOrbitOffset(wish)
+  const offset = getWishOrbitOffset(wish);
 
   return (
     <motion.div
@@ -20,7 +24,7 @@ function OrbitWishArm({ wish, onSelect }: OrbitWishArmProps) {
       transition={{
         duration: wish.orbitDuration,
         repeat: Infinity,
-        ease: 'linear',
+        ease: "linear",
       }}
     >
       <div
@@ -34,7 +38,7 @@ function OrbitWishArm({ wish, onSelect }: OrbitWishArmProps) {
           transition={{
             duration: wish.orbitDuration,
             repeat: Infinity,
-            ease: 'linear',
+            ease: "linear",
           }}
         >
           <button
@@ -51,10 +55,10 @@ function OrbitWishArm({ wish, onSelect }: OrbitWishArmProps) {
               {wish.shortLabel}
             </span>
             <span
-              className="max-w-38 rounded-2xl border border-pink-200/30 bg-zinc-900/70 px-3 py-2 text-center text-[11px] font-semibold uppercase tracking-wider text-pink-100/90 shadow-[0_0_18px_rgba(236,72,153,0.35)] backdrop-blur-sm transition-colors hover:bg-zinc-800/85 sm:max-w-44 sm:text-xs"
+              className="max-w-38 rounded-2xl border border-pink-200/30 bg-zinc-900/70 px-3 py-2 text-center text-[11px] font-semibold uppercase tracking-wider text-pink-100/90 shadow-[0_0_18px_rgba(236,72,153,0.35)] backdrop-blur-sm transition-colors hover:bg-zinc-800/85 sm:max-w-44 sm:text-xs whitespace-nowrap"
               style={{
                 textShadow:
-                  '0 0 12px rgba(244,114,182,0.9), 0 0 24px rgba(168,85,247,0.6)',
+                  "0 0 12px rgba(244,114,182,0.9), 0 0 24px rgba(168,85,247,0.6)",
               }}
             >
               {wish.title}
@@ -63,11 +67,11 @@ function OrbitWishArm({ wish, onSelect }: OrbitWishArmProps) {
         </motion.div>
       </div>
     </motion.div>
-  )
+  );
 }
 
 export function PreviewScreen() {
-  const [selectedWish, setSelectedWish] = useState<WishItem | null>(null)
+  const [selectedWish, setSelectedWish] = useState<WishItem | null>(null);
 
   return (
     <div className="relative min-h-dvh w-full">
@@ -90,9 +94,12 @@ export function PreviewScreen() {
 
       <AnimatePresence>
         {selectedWish ? (
-          <WishModal wish={selectedWish} onClose={() => setSelectedWish(null)} />
+          <WishModal
+            wish={selectedWish}
+            onClose={() => setSelectedWish(null)}
+          />
         ) : null}
       </AnimatePresence>
     </div>
-  )
+  );
 }
