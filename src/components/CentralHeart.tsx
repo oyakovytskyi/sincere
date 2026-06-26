@@ -9,7 +9,7 @@ export function CentralHeart({ onClick }: CentralHeartProps) {
 
   return (
     <div
-      className={`absolute left-1/2 top-[52%] z-20 -translate-x-1/2 -translate-y-1/2 ${
+      className={`absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 ${
         isInteractive ? 'pointer-events-auto' : 'pointer-events-none'
       }`}
     >

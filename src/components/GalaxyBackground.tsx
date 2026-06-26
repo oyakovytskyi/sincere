@@ -1,4 +1,9 @@
 import { useEffect, useRef } from 'react'
+import {
+  ORBIT_CENTER_Y_OFFSET,
+  ORBIT_ELLIPSE_X,
+  ORBIT_ELLIPSE_Y,
+} from '../data/orbitLayout'
 
 type Particle = {
   angle: number
@@ -52,7 +57,7 @@ export function GalaxyBackground() {
       const width = window.innerWidth
       const height = window.innerHeight
       const centerX = width / 2
-      const centerY = height / 2 + 20
+      const centerY = height / 2 + ORBIT_CENTER_Y_OFFSET
 
       context.fillStyle = '#030108'
       context.fillRect(0, 0, width, height)
@@ -61,9 +66,9 @@ export function GalaxyBackground() {
         particle.angle += particle.speed
 
         const x =
-          centerX + Math.cos(particle.angle) * particle.radius * 0.92
+          centerX + Math.cos(particle.angle) * particle.radius * ORBIT_ELLIPSE_X
         const y =
-          centerY + Math.sin(particle.angle) * particle.radius * 0.38
+          centerY + Math.sin(particle.angle) * particle.radius * ORBIT_ELLIPSE_Y
 
         const hue = 300 + (particle.radius / 500) * 40
         context.beginPath()

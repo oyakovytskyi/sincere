@@ -2,6 +2,8 @@ export type WishItem = {
   id: string
   orbitAngle: number
   orbitRadius: number
+  orbitDuration: number
+  orbitDirection: 1 | -1
   avatarGradient: string
   imageGradient: string
   shortLabel: string
@@ -21,8 +23,10 @@ export const FLOATING_LABELS = [
 export const WISH_ITEMS: WishItem[] = [
   {
     id: 'wish-1',
-    orbitAngle: 0.4,
+    orbitAngle: 0,
     orbitRadius: 1.05,
+    orbitDuration: 42,
+    orbitDirection: 1,
     avatarGradient: 'linear-gradient(135deg, #f472b6, #c026d3)',
     imageGradient: 'linear-gradient(160deg, #fb7185 0%, #a855f7 50%, #ec4899 100%)',
     shortLabel: '💕',
@@ -32,8 +36,10 @@ export const WISH_ITEMS: WishItem[] = [
   },
   {
     id: 'wish-2',
-    orbitAngle: 1.8,
-    orbitRadius: 1.22,
+    orbitAngle: 1.05,
+    orbitRadius: 1.35,
+    orbitDuration: 31,
+    orbitDirection: -1,
     avatarGradient: 'linear-gradient(135deg, #fbbf24, #f97316)',
     imageGradient: 'linear-gradient(160deg, #fcd34d 0%, #f97316 55%, #ef4444 100%)',
     shortLabel: '🎂',
@@ -43,8 +49,10 @@ export const WISH_ITEMS: WishItem[] = [
   },
   {
     id: 'wish-3',
-    orbitAngle: 3.1,
-    orbitRadius: 0.92,
+    orbitAngle: 2.1,
+    orbitRadius: 1.55,
+    orbitDuration: 56,
+    orbitDirection: 1,
     avatarGradient: 'linear-gradient(135deg, #60a5fa, #818cf8)',
     imageGradient: 'linear-gradient(160deg, #38bdf8 0%, #6366f1 50%, #a78bfa 100%)',
     shortLabel: '✨',
@@ -54,8 +62,10 @@ export const WISH_ITEMS: WishItem[] = [
   },
   {
     id: 'wish-4',
-    orbitAngle: 4.5,
-    orbitRadius: 1.35,
+    orbitAngle: 3.15,
+    orbitRadius: 1.75,
+    orbitDuration: 38,
+    orbitDirection: -1,
     avatarGradient: 'linear-gradient(135deg, #34d399, #14b8a6)',
     imageGradient: 'linear-gradient(160deg, #6ee7b7 0%, #2dd4bf 50%, #0ea5e9 100%)',
     shortLabel: '🌸',
@@ -65,8 +75,10 @@ export const WISH_ITEMS: WishItem[] = [
   },
   {
     id: 'wish-5',
-    orbitAngle: 5.7,
-    orbitRadius: 1.15,
+    orbitAngle: 4.2,
+    orbitRadius: 1.95,
+    orbitDuration: 48,
+    orbitDirection: 1,
     avatarGradient: 'linear-gradient(135deg, #f43f5e, #db2777)',
     imageGradient: 'linear-gradient(160deg, #fda4af 0%, #e11d48 50%, #be185d 100%)',
     shortLabel: '❤️',
@@ -76,8 +88,10 @@ export const WISH_ITEMS: WishItem[] = [
   },
   {
     id: 'wish-6',
-    orbitAngle: 6.9,
-    orbitRadius: 1.48,
+    orbitAngle: 5.25,
+    orbitRadius: 2.15,
+    orbitDuration: 27,
+    orbitDirection: -1,
     avatarGradient: 'linear-gradient(135deg, #e879f9, #d946ef)',
     imageGradient: 'linear-gradient(160deg, #f0abfc 0%, #c026d3 50%, #7c3aed 100%)',
     shortLabel: '🎁',
