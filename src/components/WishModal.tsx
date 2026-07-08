@@ -28,7 +28,7 @@ export function WishModal({ wish, onClose }: WishModalProps) {
     >
       <button
         type="button"
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 cursor-pointer bg-black/70 backdrop-blur-sm"
         onClick={onClose}
         aria-label="Закрити модальне вікно"
       />
@@ -40,15 +40,14 @@ export function WishModal({ wish, onClose }: WishModalProps) {
         aria-labelledby={`wish-modal-title-${wish.id}`}
         initial={{ opacity: 0, scale: 0.88, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 16 }}
+        exit={{ opacity: 1, scale: 0.92, y: 16 }}
         transition={{ type: 'spring', stiffness: 260, damping: 22 }}
         onClick={(event) => event.stopPropagation()}
       >
-        <div
-          className="aspect-4/5 w-full"
-          style={{ background: wish.imageGradient }}
-          role="img"
-          aria-label={wish.title}
+        <img
+          src={wish.image}
+          alt={wish.title}
+          className="aspect-4/5 w-full bg-zinc-900 object-cover"
         />
 
         <div className="space-y-3 px-6 py-5 text-center">
@@ -63,7 +62,7 @@ export function WishModal({ wish, onClose }: WishModalProps) {
         <button
           type="button"
           onClick={onClose}
-          className="w-full border-t border-pink-300/15 py-4 text-sm font-medium text-pink-200 transition-colors hover:bg-pink-500/10"
+          className="w-full cursor-pointer border-t border-pink-300/15 py-4 text-sm font-medium text-pink-200 transition-colors outline-none hover:bg-pink-500/10 focus-visible:bg-pink-500/15 active:bg-pink-500/20"
         >
           Закрити
         </button>

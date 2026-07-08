@@ -24,7 +24,7 @@ export function IntroScreen({ onContinue }: IntroScreenProps) {
 
         <motion.button
           type="button"
-          className="mt-7 rounded-2xl border border-pink-300/40 bg-pink-500/25 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-pink-100 transition-colors hover:bg-pink-500/35 sm:text-base"
+          className="mt-7 cursor-pointer rounded-2xl border border-pink-300/40 bg-pink-500/25 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-pink-100 outline-none transition-colors hover:bg-pink-500/35 focus-visible:ring-2 focus-visible:ring-pink-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 sm:text-base"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={onContinue}

@@ -1,102 +1,92 @@
 export type WishItem = {
   id: string
+  image: string
   orbitAngle: number
   orbitRadius: number
   orbitDuration: number
   orbitDirection: 1 | -1
-  avatarGradient: string
-  imageGradient: string
   shortLabel: string
   title: string
   message: string
 }
 
-export const FLOATING_LABELS = [
-  'З днем народження',
-  'Святковий день',
-  'Кохання мого життя',
-  'Щасливого свята',
-  'Я тебе кохаю',
-  'Моє серце',
+const SHARED_ORBIT_DURATION = 48
+const SHARED_ORBIT_DIRECTION = 1 as const
+
+const WISH_CONTENT = [
+  {
+    id: 'wish-together',
+    image: '/together.webp',
+    shortLabel: 'Ми',
+    title: 'Ми ❤️',
+    message:
+      'Таня — це найпрекрасніше і найцінніше, що в мене є. Хочу побажати тобі всього-всього — нехай усе збувається.',
+  },
+  {
+    id: 'wish-burgers',
+    image: '/burgers.webp',
+    shortLabel: 'Їжа',
+    title: 'Пристрасть',
+    message:
+      'Бажаю тобі ще раз спробувати ці смачні бургери і багато інших страв. Бажано Too Good To Go за мало грошей.',
+  },
+  {
+    id: 'wish-salmon',
+    image: '/salmon.webp',
+    shortLabel: 'Смак',
+    title: 'Пристрасть два',
+    message:
+      'Бажаю, щоб у тебе завжди був шматок смачного лосося адже радощів від нього не мало.',
+  },
+  {
+    id: 'wish-group',
+    image: '/group.webp',
+    shortLabel: 'Друзі',
+    title: 'В компанії',
+    message:
+      'Бажаю тобі ще більше друзів і таких моментів, коли можна просто бути разом і проводити час.',
+  },
+  {
+    id: 'wish-skiing',
+    image: '/skiing.webp',
+    shortLabel: 'Гори',
+    title: 'Щорічні схили',
+    message:
+      'Бажаю тобі ще тих неймовірних краєвидів у горах і щоб завжди виходило покататись на лижах.',
+  },
+  {
+    id: 'wish-stretch',
+    image: '/stretch.webp',
+    shortLabel: 'Спорт',
+    title: 'Спорт',
+    message:
+      'Таня найгарніша і найкраща спортсменка. Скоро вже Сніжана буде дивитись твої уроки',
+  },
+  {
+    id: 'wish-posture',
+    image: '/posture.webp',
+    shortLabel: 'Кадр',
+    title: 'Ідеальна постава',
+    message:
+      'Роки роботи з поставою дають свої знаки!',
+  },
+  {
+    id: 'wish-travel',
+    image: '/travel.webp',
+    shortLabel: 'Подорожі',
+    title: 'Більше і більше',
+    message:
+      'Світ такий великий, і я бажаю нам побачити його ще більше. Нові міста, нові країни, нові пригоди нехай кожна подорож буде незабутньою.',
+  },
 ] as const
 
-export const WISH_ITEMS: WishItem[] = [
-  {
-    id: 'wish-1',
-    orbitAngle: 0,
-    orbitRadius: 1.05,
-    orbitDuration: 42,
-    orbitDirection: 1,
-    avatarGradient: 'linear-gradient(135deg, #f472b6, #c026d3)',
-    imageGradient: 'linear-gradient(160deg, #fb7185 0%, #a855f7 50%, #ec4899 100%)',
-    shortLabel: '💕',
-    title: 'Для тебе',
-    message:
-      'Нехай цей день буде сповнений сміху, обіймів і моментів, які ти збережеш назавжди. Ти світло мого життя.',
-  },
-  {
-    id: 'wish-2',
-    orbitAngle: 1.05,
-    orbitRadius: 1.35,
-    orbitDuration: 31,
-    orbitDirection: -1,
-    avatarGradient: 'linear-gradient(135deg, #fbbf24, #f97316)',
-    imageGradient: 'linear-gradient(160deg, #fcd34d 0%, #f97316 55%, #ef4444 100%)',
-    shortLabel: '🎂',
-    title: 'З днем народження',
-    message:
-      'Сьогодні ми святкуємо не лише ще один рік, а всю твою красу й доброту. Нехай на твоєму шляху завжди буде любов.',
-  },
-  {
-    id: 'wish-3',
-    orbitAngle: 2.1,
-    orbitRadius: 1.55,
-    orbitDuration: 56,
-    orbitDirection: 1,
-    avatarGradient: 'linear-gradient(135deg, #60a5fa, #818cf8)',
-    imageGradient: 'linear-gradient(160deg, #38bdf8 0%, #6366f1 50%, #a78bfa 100%)',
-    shortLabel: '✨',
-    title: 'Моя зірка',
-    message:
-      'Ти сяєш особливим світлом. Нехай кожне бажання, яке ти загадаєш сьогодні, здійсниться найкращим чином.',
-  },
-  {
-    id: 'wish-4',
-    orbitAngle: 3.15,
-    orbitRadius: 1.75,
-    orbitDuration: 38,
-    orbitDirection: -1,
-    avatarGradient: 'linear-gradient(135deg, #34d399, #14b8a6)',
-    imageGradient: 'linear-gradient(160deg, #6ee7b7 0%, #2dd4bf 50%, #0ea5e9 100%)',
-    shortLabel: '🌸',
-    title: 'З ніжністю',
-    message:
-      'Дякую, що ти є, і що робиш кожен день особливим. Бажаю тобі незабутнього дня народження.',
-  },
-  {
-    id: 'wish-5',
-    orbitAngle: 4.2,
-    orbitRadius: 1.95,
-    orbitDuration: 48,
-    orbitDirection: 1,
-    avatarGradient: 'linear-gradient(135deg, #f43f5e, #db2777)',
-    imageGradient: 'linear-gradient(160deg, #fda4af 0%, #e11d48 50%, #be185d 100%)',
-    shortLabel: '❤️',
-    title: 'Кохання мого життя',
-    message:
-      'Ти моя найулюбленіша людина в усьому всесвіті. Нехай цей новий рік принесе тобі все, чого ти заслуговуєш.',
-  },
-  {
-    id: 'wish-6',
-    orbitAngle: 5.25,
-    orbitRadius: 2.15,
-    orbitDuration: 27,
-    orbitDirection: -1,
-    avatarGradient: 'linear-gradient(135deg, #e879f9, #d946ef)',
-    imageGradient: 'linear-gradient(160deg, #f0abfc 0%, #c026d3 50%, #7c3aed 100%)',
-    shortLabel: '🎁',
-    title: 'Подарунок',
-    message:
-      'Найкращий подарунок - це бути поруч із тобою. Нехай сьогодні й завжди ти відчуваєш любов, цінність і щастя.',
-  },
-]
+const WISH_COUNT = WISH_CONTENT.length
+const ORBIT_SECTOR = (Math.PI * 2) / WISH_COUNT
+
+export const WISH_ITEMS: WishItem[] = WISH_CONTENT.map((wish, index) => ({
+  ...wish,
+  orbitAngle: index * ORBIT_SECTOR,
+  orbitRadius: index % 2 === 0 ? 1.25 : 1.5,
+  orbitDuration: SHARED_ORBIT_DURATION,
+  orbitDirection: SHARED_ORBIT_DIRECTION,
+}))

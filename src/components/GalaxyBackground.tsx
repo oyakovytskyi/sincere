@@ -4,10 +4,12 @@ import {
   ORBIT_ELLIPSE_X,
   ORBIT_ELLIPSE_Y,
 } from "../data/orbitLayout";
+import { orbitPoint3D, projectPoint3D } from "../utils/perspective3d";
 
 type Particle = {
   angle: number;
   radius: number;
+  z: number;
   size: number;
   opacity: number;
   speed: number;
@@ -21,6 +23,7 @@ function createParticles(): Particle[] {
     return {
       angle: spiralTurn * Math.PI * 7 + (index % 11) * 0.08,
       radius: 40 + spiralTurn * 420 + (index % 7) * 6,
+      z: (Math.random() * 2 - 1) * 15,
       size: 0.6 + (index % 5) * 0.35,
       opacity: 0.15 + (index % 9) * 0.08,
       speed: 0.00008 + (index % 6) * 0.00003,
@@ -62,23 +65,6 @@ export function GalaxyBackground() {
       context.fillStyle = "#030108";
       context.fillRect(0, 0, width, height);
 
-      for (const particle of particles) {
-        particle.angle += particle.speed;
-
-        const x =
-          centerX +
-          Math.cos(particle.angle) * particle.radius * ORBIT_ELLIPSE_X;
-        const y =
-          centerY +
-          Math.sin(particle.angle) * particle.radius * ORBIT_ELLIPSE_Y;
-
-        const hue = 300 + (particle.radius / 500) * 40;
-        context.beginPath();
-        context.fillStyle = `hsla(${hue}, 90%, 72%, ${particle.opacity})`;
-        context.arc(x, y, particle.size, 0, Math.PI * 2);
-        context.fill();
-      }
-
       const glow = context.createRadialGradient(
         centerX,
         centerY,
@@ -92,6 +78,46 @@ export function GalaxyBackground() {
       glow.addColorStop(1, "rgba(3, 1, 8, 0)");
       context.fillStyle = glow;
       context.fillRect(0, 0, width, height);
+
+      const projected = particles.map((particle) => {
+        particle.angle += particle.speed;
+
+        const orbit = orbitPoint3D(
+          particle.angle,
+          particle.radius,
+          ORBIT_ELLIPSE_X,
+          ORBIT_ELLIPSE_Y,
+          particle.z,
+        );
+        const point = projectPoint3D(orbit.x, orbit.y, orbit.z, {
+          centerX,
+          centerY,
+        });
+
+        return {
+          particle,
+          sx: point.sx,
+          sy: point.sy,
+          depth: point.depth,
+          size: particle.size * point.sizeScale,
+          opacity: particle.opacity * point.depthFade,
+        };
+      });
+
+      projected.sort((a, b) => a.depth - b.depth);
+
+      for (const point of projected) {
+        const { particle, sx, sy, size, opacity } = point;
+        if (size <= 0 || opacity <= 0) continue;
+
+        const drawSize = Math.max(size, 0.15);
+        const drawOpacity = Math.min(opacity, 1);
+        const hue = 300 + (particle.radius / 500) * 40;
+        context.beginPath();
+        context.fillStyle = `hsla(${hue}, 90%, 72%, ${drawOpacity})`;
+        context.arc(sx, sy, drawSize, 0, Math.PI * 2);
+        context.fill();
+      }
 
       frameId = window.requestAnimationFrame(draw);
     };

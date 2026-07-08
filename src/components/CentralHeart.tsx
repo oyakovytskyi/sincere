@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { projectPoint3D } from "../utils/perspective3d";
 
 type Particle3D = {
   x: number;
@@ -14,8 +15,6 @@ type Particle3D = {
 const OUTLINE_COUNT = 220;
 const FILL_COUNT = 520;
 const BEAM_COUNT = 48;
-const PERSPECTIVE = 0.045;
-const TILT_X = 0.38;
 const HEART_EXTENT_X = 18;
 const HEART_EXTENT_Y_TOP = 7;
 const HEART_EXTENT_Y_BOTTOM = 19;
@@ -48,26 +47,6 @@ function isInsideHeart(x: number, y: number): boolean {
   const ny = y / 13;
   const a = nx * nx + ny * ny - 1;
   return a * a * a - nx * nx * ny * ny * ny <= 0;
-}
-
-function rotateY(p: Particle3D, angle: number) {
-  const cos = Math.cos(angle);
-  const sin = Math.sin(angle);
-  return {
-    x: p.x * cos - p.z * sin,
-    y: p.y,
-    z: p.x * sin + p.z * cos,
-  };
-}
-
-function rotateX(x: number, y: number, z: number, angle: number) {
-  const cos = Math.cos(angle);
-  const sin = Math.sin(angle);
-  return {
-    x,
-    y: y * cos - z * sin,
-    z: y * sin + z * cos,
-  };
 }
 
 function createParticles(): Particle3D[] {
@@ -185,17 +164,19 @@ function ParticleHeartCanvas() {
       context.fillRect(0, 0, width, height);
 
       const projected = particles.map((particle) => {
-        const rotatedY = rotateY(particle, rotationY);
-        const rotated = rotateX(rotatedY.x, rotatedY.y, rotatedY.z, TILT_X);
-        const depth = 1 + rotated.z * PERSPECTIVE;
-        const scale = fitScale * pulse;
+        const point = projectPoint3D(particle.x, particle.y, particle.z, {
+          rotationY,
+          centerX,
+          centerY,
+          scale: fitScale * pulse,
+        });
 
         return {
           particle,
-          sx: centerX + (rotated.x * scale) / depth,
-          sy: centerY + (rotated.y * scale) / depth,
-          depth: rotated.z,
-          size: (particle.size * scale) / depth,
+          sx: point.sx,
+          sy: point.sy,
+          depth: point.depth,
+          size: particle.size * point.sizeScale,
         };
       });
 
@@ -251,7 +232,7 @@ function ParticleHeartCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="relative h-52 w-52 sm:h-64 sm:w-64"
+      className="relative h-52 w-52 sm:h-112 sm:w-64"
       aria-hidden
     />
   );
